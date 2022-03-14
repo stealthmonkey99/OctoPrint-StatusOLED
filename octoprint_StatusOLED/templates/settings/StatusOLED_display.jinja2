@@ -1,0 +1,137 @@
+<legend>{{ _('General Display Settings') }}</legend>
+
+<div class="control-group">
+    <label class="control-label">{{ _('Sample Text') }}</label>
+    <div class="controls">
+        <textarea rows="3" class="sample-text" wrap="off" data-bind="value: sample_text" style="width: {{plugin_StatusOLED_display_width * 2}}px"></textarea>
+        <div class="sample-display" style="width: {{plugin_StatusOLED_display_width * 2}}px; height: {{plugin_StatusOLED_display_height * 2}}px">
+            <img id="sample-display-img" data-bind="attr: { src: sample_img }, style: { 'background-color': sw_color }" width="{{plugin_StatusOLED_display_width * 2}}" height="{{plugin_StatusOLED_display_height * 2}}">
+        </div>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">{{ _('Primary Font') }}</label>
+    <div class="controls">
+        <p>
+        <select data-bind="value: font_name">
+            <option value="default">default</option>
+            <option value="Akshar-Bold.ttf">Akshar (Bold)</option>
+            <option value="Akshar-Regular.ttf">Akshar</option>
+            <option value="Lato-Black.ttf">Lato (Bold)</option>
+            <option value="Lato-Regular.ttf">Lato</option>
+            <option value="OpenSans-ExtraBold.ttf">Open Sans (Bold)</option>
+            <option value="OpenSans-Medium.ttf">Open Sans</option>
+            <option value="Poppins-ExtraBold.ttf">Poppins (Bold)</option>
+            <option value="Poppins-Medium.ttf">Poppins</option>
+            <option value="Roboto-Black.ttf">Roboto (Bold)</option>
+            <option value="Roboto-Regular.ttf">Roboto</option>
+            <option value="RobotoMono-Bold.ttf">Roboto Mono (Bold)</option>
+            <option value="RobotoMono-Regular.ttf">Roboto Mono</option>
+            <option value="Ubuntu-Bold.ttf">Ubuntu (Bold)</option>
+            <option value="Ubuntu-Regular.ttf">Ubuntu</option>
+            <option value="UbuntuMono-Bold.ttf">Ubuntu Mono (Bold)</option>
+            <option value="UbuntuMono-Regular.ttf">Ubuntu Mono</option>
+            <option value="NotoSans-Bold.ttf">Noto Sans (Bold)</option>
+            <option value="NotoSans-Regular.ttf">Noto Sans</option>
+        </select>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">{{ _('Primary Font Size') }}</label>
+    <div class="controls">
+        <input type="range" class="input-large" min="8" max="72" step="1" data-bind="value: font_size, enable: font_name() !== 'default'">
+        <div class="input-append">
+            <input input type="number" class="input-mini text-right" min="8" max="72" step="1" data-bind="value: font_size, enable: font_name() !== 'default'">
+            <span class="add-on">pt</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="control-group">
+    <label class="control-label">{{ _('Secondary Font') }}</label>
+    <div class="controls">
+        <p>
+        <select data-bind="value: sec_font_name">
+            <option value="default">default</option>
+            <option value="Akshar-Bold.ttf">Akshar (Bold)</option>
+            <option value="Akshar-Regular.ttf">Akshar</option>
+            <option value="Lato-Black.ttf">Lato (Bold)</option>
+            <option value="Lato-Regular.ttf">Lato</option>
+            <option value="OpenSans-ExtraBold.ttf">Open Sans (Bold)</option>
+            <option value="OpenSans-Medium.ttf">Open Sans</option>
+            <option value="Poppins-ExtraBold.ttf">Poppins (Bold)</option>
+            <option value="Poppins-Medium.ttf">Poppins</option>
+            <option value="Roboto-Black.ttf">Roboto (Bold)</option>
+            <option value="Roboto-Regular.ttf">Roboto</option>
+            <option value="RobotoMono-Bold.ttf">Roboto Mono (Bold)</option>
+            <option value="RobotoMono-Regular.ttf">Roboto Mono</option>
+            <option value="Ubuntu-Bold.ttf">Ubuntu (Bold)</option>
+            <option value="Ubuntu-Regular.ttf">Ubuntu</option>
+            <option value="UbuntuMono-Bold.ttf">Ubuntu Mono (Bold)</option>
+            <option value="UbuntuMono-Regular.ttf">Ubuntu Mono</option>
+            <option value="NotoSans-Bold.ttf">Noto Sans (Bold)</option>
+            <option value="NotoSans-Regular.ttf">Noto Sans</option>
+        </select>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">{{ _('Secondary Font Size') }}</label>
+    <div class="controls">
+        <input type="range" class="input-large" min="8" max="72" step="1" data-bind="value: sec_font_size, enable: sec_font_name() !== 'default'">
+        <div class="input-append">
+            <input input type="number" class="input-mini text-right" min="8" max="72" step="1" data-bind="value: sec_font_size, enable: sec_font_name() !== 'default'">
+            <span class="add-on">pt</span>
+        </div>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">{{ _('Animation Loops') }}</label>
+    <div class="controls">
+        <input input type="number" class="input-mini text-right" min="0" max="100" step="1" data-bind="value: anim_loops">
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">{{ _('Animation Speed') }}</label>
+    <div class="controls">
+        <input type="range" class="input-large" min="{{plugin_StatusOLED_anim_speed_xslow}}" max="{{plugin_StatusOLED_anim_speed_xfast}}" step="1" data-bind="value: anim_speed">
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">{{ _('Progress Bar') }}</label>
+    <div class="controls">
+        <label class="checkbox">
+            <input type="checkbox" data-bind="checked: progbar_enabled"> {{ _('Display Print Progress') }}
+        </label>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">{{ _('Progress Bar Style') }}</label>
+    <div class="controls">
+        <label class="radio">
+            <input type="radio" name="progbarStyle" value="true" data-bind="checked: progbar_outline, enable: progbar_enabled">
+            Outlined
+        </label>
+        <label class="radio">
+            <input type="radio" name="progbarStyle" value="false" data-bind="checked: progbar_outline, enable: progbar_enabled">
+            Solid
+        </label>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">{{ _('Progress Bar Height') }}</label>
+    <div class="controls">
+        <div class="input-append">
+            <input type="number" class="input-mini text-right" min="4" max="{{plugin_StatusOLED_display_height - 1}}" step="1" data-bind="value: progbar_size, enable: progbar_enabled">
+            <span class="add-on">px</span>
+        </div>
+    </div>
+</div>

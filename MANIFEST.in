@@ -1,0 +1,4 @@
+include README.md
+recursive-include octoprint_StatusOLED/templates *
+recursive-include octoprint_StatusOLED/translations *
+recursive-include octoprint_StatusOLED/static *

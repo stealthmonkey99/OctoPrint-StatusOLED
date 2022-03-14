@@ -1,0 +1,18 @@
+.oled-container {
+    border: 2px inset;
+    margin: 1px 0;
+}
+
+.oled-screen {
+    border: 1px solid #000;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAAAgAQAAAADyWU2IAAAAV0lEQVR4nGNgGImAzwCF+4CBDcZkYmBgYGB4eFzi27EDDAwMDAwsEOFlM2ythJFUMPxiQNUiATeCgZGBgYGB4ec1AZkcw5PyDcg2MaLwGBgY+El3PF0BANAXDN4diusOAAAAAElFTkSuQmCC");
+
+    /* remove antialiasing across browsers */
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+}

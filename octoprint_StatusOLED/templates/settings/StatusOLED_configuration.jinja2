@@ -1,0 +1,49 @@
+<legend>{{ _('Hardware Display') }}</legend>
+
+<div class="control-group">
+    If your printer doesn't support M117 codes, you can 
+    <a href="https://github.com/stealthmonkey99/OctoPrint-StatusOLED/blob/main/README.md" target="_blank" rel="noreferrer">
+        add an I2C PiOLED display to your Raspberry Pi
+    </a> running OctoPrint and configure it here.
+</div>
+
+<div class="control-group">
+    <div class="controls">
+        <label class="checkbox">
+            <input type="checkbox" data-bind="checked: hw_enabled"> {{ _('Display messages with PiOLED connected as an I2C device') }}
+        </label>
+    </div>
+</div>
+
+<div class="control-group">
+    <div class="controls">
+        <label class="checkbox">
+            <input type="checkbox" data-bind="checked: hw_rotated_180, enable: hw_enabled"> {{ _('Rotate display 180&deg;') }}
+        </label>
+    </div>
+</div>
+
+<legend>{{ _('Software Display') }}</legend>
+
+<div class="control-group">
+    You can also mirror the same display in your browser window while you are actively connected to the OctoPrint server.
+</div>
+
+<div class="control-group">
+    <div class="controls">
+        <label class="checkbox">
+            <input type="checkbox" data-bind="checked: sw_enabled"> {{ _('Mirror display in browser window') }}
+        </label>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">{{ _('Color') }}</label>
+    <div class="controls">
+        <label class="input-prepend input-append" for="colorpicker">
+            <span class="add-on">#</span>
+            <input type="text" class="input-mini text-left" data-bind="value: sw_color_value, enable: sw_enabled">
+            <input type="color" id="colorpicker" class="add-on input-mini color-picker" data-bind="value: sw_color, enable: sw_enabled">
+        </label>
+    </div>
+</div>

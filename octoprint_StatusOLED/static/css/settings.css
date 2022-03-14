@@ -1,0 +1,31 @@
+input#colorpicker {
+    padding: 0px 2px;
+    width: 60px;
+    height: 30px;
+}
+
+.sample-text {
+    font-family: monospace;
+    font-size: x-small;
+    overflow-y: scroll;
+    line-height: normal;
+}
+
+.sample-display {
+    display: block;
+    border: inset 4px;
+    background-color: #000000;
+    padding: 2px;
+    margin-top: 6px;
+}
+
+.sample-display img {
+    /* remove antialiasing across browsers */
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+}

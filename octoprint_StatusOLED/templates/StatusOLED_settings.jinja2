@@ -1,0 +1,29 @@
+<form class="form-horizontal">
+    <h3>{{ _('PiOLED Status Display Plugin') }}</h3>
+
+    <div class="tabbable" style="padding-top: 10px">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="#tabStatusOLED_Configuration" data-toggle="tab">{{ _('Configuration') }}</a></li>
+            <li><a href="#tabStatusOLED_Display" data-toggle="tab">{{ _('Display Settings') }}</a></li>
+            {% if plugin_StatusOLED_debug -%}
+                <li><a href="#tabStatusOLED_Debug" data-toggle="tab">{{ _('Debug') }}</a></li>
+            {% endif %}
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tabStatusOLED_Configuration">
+                {%  include "settings/StatusOLED_configuration.jinja2" %}
+            </div>
+
+            <div class="tab-pane" id="tabStatusOLED_Display">
+                {%  include "settings/StatusOLED_display.jinja2" %}
+            </div>
+
+            {% if plugin_StatusOLED_debug -%}
+                <div class="tab-pane" id="tabStatusOLED_Debug">
+                    {%  include "settings/StatusOLED_debug.jinja2" %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</form>

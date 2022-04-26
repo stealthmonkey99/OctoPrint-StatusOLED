@@ -1,11 +1,16 @@
 <legend>{{ _('General Display Settings') }}</legend>
 
 <div class="control-group">
-    <label class="control-label">{{ _('Sample Text') }}</label>
+    <label class="control-label">{{ _('Preview Display') }}</label>
     <div class="controls">
-        <textarea rows="3" class="sample-text" wrap="off" data-bind="value: sample_text" style="width: {{plugin_StatusOLED_display_width * 2}}px"></textarea>
         <div class="sample-display" style="width: {{plugin_StatusOLED_display_width * 2}}px; height: {{plugin_StatusOLED_display_height * 2}}px">
             <img id="sample-display-img" data-bind="attr: { src: sample_img }, style: { 'background-color': sw_color }" width="{{plugin_StatusOLED_display_width * 2}}" height="{{plugin_StatusOLED_display_height * 2}}">
+        </div>
+        <div class="advanced_options">
+            <div><small><a href="#" class="muted" data-bind="toggleContent: { class: 'fa-caret-right fa-caret-down', parent: '.advanced_options', container: '.hide' }"><i class="fa fa-caret-right"></i> {{ _('Edit Sample Text') }}</a></small></div>
+            <div class="hide">
+                <textarea rows="3" class="sample-text" wrap="off" data-bind="value: sample_text" style="width: {{plugin_StatusOLED_display_width * 2}}px"></textarea>
+            </div>
         </div>
     </div>
 </div>
@@ -13,7 +18,6 @@
 <div class="control-group">
     <label class="control-label">{{ _('Primary Font') }}</label>
     <div class="controls">
-        <p>
         <select data-bind="value: font_name">
             <option value="default">default</option>
             <option value="Akshar-Bold.ttf">Akshar (Bold)</option>
@@ -35,25 +39,16 @@
             <option value="NotoSans-Bold.ttf">Noto Sans (Bold)</option>
             <option value="NotoSans-Regular.ttf">Noto Sans</option>
         </select>
-    </div>
-</div>
-
-<div class="control-group">
-    <label class="control-label">{{ _('Primary Font Size') }}</label>
-    <div class="controls">
-        <input type="range" class="input-large" min="8" max="72" step="1" data-bind="value: font_size, enable: font_name() !== 'default'">
-        <div class="input-append">
+        <div class="input-inline input-append">
             <input input type="number" class="input-mini text-right" min="8" max="72" step="1" data-bind="value: font_size, enable: font_name() !== 'default'">
             <span class="add-on">pt</span>
         </div>
     </div>
 </div>
 
-
 <div class="control-group">
     <label class="control-label">{{ _('Secondary Font') }}</label>
     <div class="controls">
-        <p>
         <select data-bind="value: sec_font_name">
             <option value="default">default</option>
             <option value="Akshar-Bold.ttf">Akshar (Bold)</option>
@@ -75,14 +70,7 @@
             <option value="NotoSans-Bold.ttf">Noto Sans (Bold)</option>
             <option value="NotoSans-Regular.ttf">Noto Sans</option>
         </select>
-    </div>
-</div>
-
-<div class="control-group">
-    <label class="control-label">{{ _('Secondary Font Size') }}</label>
-    <div class="controls">
-        <input type="range" class="input-large" min="8" max="72" step="1" data-bind="value: sec_font_size, enable: sec_font_name() !== 'default'">
-        <div class="input-append">
+        <div class="input-inline input-append">
             <input input type="number" class="input-mini text-right" min="8" max="72" step="1" data-bind="value: sec_font_size, enable: sec_font_name() !== 'default'">
             <span class="add-on">pt</span>
         </div>
@@ -90,38 +78,42 @@
 </div>
 
 <div class="control-group">
-    <label class="control-label">{{ _('Animation Loops') }}</label>
+    <label class="control-label">{{ _('Scrolling Long Messages') }}</label>
     <div class="controls">
-        <input input type="number" class="input-mini text-right" min="0" max="100" step="1" data-bind="value: anim_loops">
+        <select data-bind="value: anim_loops">
+            <option value="0">Don't Scroll</option>
+            <option value="1">Scroll Once</option>
+            <option value="2">Scroll Twice</option>
+            <option value="3">Scroll Thrice</option>
+            <option value="4">Scroll 4x</option>
+            <option value="5">Scroll 5x</option>
+            <option value="10">Scroll 10x</option>
+            <option value="20">Scroll 20x</option>
+        </select>
     </div>
 </div>
 
 <div class="control-group">
-    <label class="control-label">{{ _('Animation Speed') }}</label>
+    <label class="control-label">{{ _('Scrolling Speed') }}</label>
     <div class="controls">
-        <input type="range" class="input-large" min="{{plugin_StatusOLED_anim_speed_xslow}}" max="{{plugin_StatusOLED_anim_speed_xfast}}" step="1" data-bind="value: anim_speed">
+        <input type="range" class="input-large" min="{{plugin_StatusOLED_anim_speed_xslow}}" max="{{plugin_StatusOLED_anim_speed_xfast}}" step="1" data-bind="value: anim_speed, enable: anim_loops() > 0">
     </div>
 </div>
 
 <div class="control-group">
-    <label class="control-label">{{ _('Progress Bar') }}</label>
-    <div class="controls">
-        <label class="checkbox">
-            <input type="checkbox" data-bind="checked: progbar_enabled"> {{ _('Display Print Progress') }}
-        </label>
-    </div>
-</div>
-
-<div class="control-group">
-    <label class="control-label">{{ _('Progress Bar Style') }}</label>
+    <label class="control-label">{{ _('Display Print Progress') }}</label>
     <div class="controls">
         <label class="radio">
-            <input type="radio" name="progbarStyle" value="true" data-bind="checked: progbar_outline, enable: progbar_enabled">
-            Outlined
+            <input type="radio" name="progbarStyle" value="disabled" data-bind="checked: prog_bar_style">
+            Disabled (No Progress)
         </label>
         <label class="radio">
-            <input type="radio" name="progbarStyle" value="false" data-bind="checked: progbar_outline, enable: progbar_enabled">
-            Solid
+            <input type="radio" name="progbarStyle" value="outlined" data-bind="checked: prog_bar_style">
+            Progress Bar (Outlined)
+        </label>
+        <label class="radio">
+            <input type="radio" name="progbarStyle" value="solid" data-bind="checked: prog_bar_style">
+            Progress Bar (Solid)
         </label>
     </div>
 </div>

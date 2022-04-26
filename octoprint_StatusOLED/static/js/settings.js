@@ -26,6 +26,7 @@ $(function() {
         self.loginStateVM = parameters[1];
         self.accessVM = parameters[2];
         self.settings = null;
+        self.settingsInitialized = false;
 
         self.hw_enabled = ko.observable();
         self.hw_rotated_180 = ko.observable();
@@ -47,9 +48,37 @@ $(function() {
         self.sec_font_size = ko.observable();
         self.anim_loops = ko.observable();
         self.anim_speed = ko.observable();
-        self.progbar_enabled = ko.observable();
-        self.progbar_outline = ko.observable();
+        self.progbar_enabled = ko.observable(true);
+        self.progbar_outline = ko.observable(true);
         self.progbar_size = ko.observable();
+        self.prog_bar_style = ko.pureComputed({
+            read: function () {
+                if (self.progbar_enabled()) {
+                    return self.progbar_outline() ? "outlined" : "solid";
+                } else {
+                    return "disabled";
+                }
+            },
+            write: function (value) {
+                switch (value) {
+                    case "disabled":
+                        self.progbar_enabled(false);
+                        break;
+                    case "solid":
+                        self.progbar_enabled(true);
+                        self.progbar_outline(false);
+                        break;
+                    case "outlined":
+                        self.progbar_enabled(true);
+                        self.progbar_outline(true);
+                        break;
+                        
+                    default:
+                        break;
+                }
+            },
+            owner: self
+        });
         self.sample_text = ko.observable(DEFAULT_SAMPLE_TEXTS.join("\n"));
         self.imageLoader = new Image();
         self.displayTabLoaded = ko.observable();
@@ -61,7 +90,9 @@ $(function() {
         self.sample_img_loader = ko.computed(function() {
             self.displayTabLoaded();
             var url = `api/plugin/${PLUGIN_IDENTIFIER}?sample=${Date.now()}&font_name=${encodeURIComponent(self.font_name())}&font_size=${encodeURIComponent(self.font_size())}&sec_font_name=${encodeURIComponent(self.sec_font_name())}&sec_font_size=${encodeURIComponent(self.sec_font_size())}&anim_loops=${encodeURIComponent(self.anim_loops())}&anim_speed=${encodeURIComponent(self.anim_speed())}&text=${encodeURIComponent(self.sample_text())}&progbar_enabled=${encodeURIComponent(self.progbar_enabled())}&progbar_outline=${encodeURIComponent(self.progbar_outline())}&progbar_size=${encodeURIComponent(self.progbar_size())}`;
-            self.imageLoader.src = url;
+            if (self.settingsInitialized) {
+                self.imageLoader.src = url;
+            }
             return url;
         });
 
@@ -85,25 +116,26 @@ $(function() {
 
         self.onBeforeBinding = function() {
             self.resetLocalSettings();
+            self.settingsInitialized = true;
         }
 
         self.onSettingsBeforeSave = function () {
             self.initSettings();
 
             // Persist the local settings for next time
-            self.settings.hardware_display.enabled(self.hw_enabled());
-            self.settings.hardware_display.rotated_180(self.hw_rotated_180());
-            self.settings.software_display.enabled(self.sw_enabled());
+            self.settings.hardware_display.enabled(!!self.hw_enabled());
+            self.settings.hardware_display.rotated_180(!!self.hw_rotated_180());
+            self.settings.software_display.enabled(!!self.sw_enabled());
             self.settings.software_display.color(self.sw_color_value());
             self.settings.display.font.name(self.font_name());
-            self.settings.display.font.size(self.font_size());
+            self.settings.display.font.size(parseInt(self.font_size()));
             self.settings.display.secondary_font.name(self.sec_font_name());
-            self.settings.display.secondary_font.size(self.sec_font_size());
-            self.settings.display.animation.loops(self.anim_loops());
-            self.settings.display.animation.speed(self.anim_speed());
-            self.settings.display.progress_bar.enabled(self.progbar_enabled());
-            self.settings.display.progress_bar.outline(self.progbar_outline());
-            self.settings.display.progress_bar.size(self.progbar_size());
+            self.settings.display.secondary_font.size(parseInt(self.sec_font_size()));
+            self.settings.display.animation.loops(parseInt(self.anim_loops()));
+            self.settings.display.animation.speed(parseInt(self.anim_speed()));
+            self.settings.display.progress_bar.enabled(!!self.progbar_enabled());
+            self.settings.display.progress_bar.outline(!!self.progbar_outline());
+            self.settings.display.progress_bar.size(parseInt(self.progbar_size()));
         };
 
         self.onSettingsHidden = function() {

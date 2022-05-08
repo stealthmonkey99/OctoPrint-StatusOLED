@@ -17,7 +17,7 @@ from threading import Thread
 import time
 
 PIOLED_WIDTH = 128
-PIOLED_HEIGHT = 32
+PIOLED_HEIGHT = 64
 
 ANIMATION_DELAY = 0.05   # 20fps
 ANIMATION_SPEED_XSLOW = 1
